@@ -11,8 +11,6 @@ def shutdown():
 
 def main():
     print "main"
-    global isRunning
-    isRunning = True
     screen = vid.vid_init()
     oldtime = time.time()
     pack = pak.loadPack(PAK_PATH)

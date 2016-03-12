@@ -56,12 +56,10 @@ def loadImageData(name, pack):
     
 def drawImage(screen, palette, name, pack, xpos, ypos):
     data, width, height = loadImageData(name, pack)
-    print "%sx%s" % (width, height)
     pixels = pygame.PixelArray(screen)
     x = xpos
     y = ypos
     for b in data:
-        print "%s_%s" % (x, y)
         paletteIndex = struct.unpack("<B", b)[0]
         color = palette[paletteIndex]
         pixels[x][y] = color
