@@ -1,0 +1,36 @@
+import time
+import host
+import vid
+import pak
+
+PAK_PATH = "/home/dave/PAK0.PAK"
+
+def shutdown():
+    global isRunning
+    isRunning = False
+
+def main():
+    print "main"
+    global isRunning
+    isRunning = True
+    screen = vid.vid_init()
+    oldtime = time.time()
+    pack = pak.loadPack(PAK_PATH)
+    
+    
+#     for k in pack.items:
+#         pack.saveFile(k, "/home/dave/quakefiles")
+
+    palette = vid.loadPalette(pack)
+    print len(palette)
+    vid.drawPalette(screen, palette)
+    while vid.run():
+        newtime = time.time()
+        host.host_frame(newtime - oldtime)
+        oldtime = newtime
+    
+    
+    
+if __name__ == '__main__':
+    print "start"
+    main()
