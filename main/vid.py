@@ -2,6 +2,7 @@ import pygame
 import struct
 
 RED = (255, 0, 0)
+WHITE = (255, 255, 255)
 size = (640, 480)
 
 isRunning = True
@@ -13,7 +14,7 @@ def vid_init():
     print "vid_init"
     pygame.init()
     screen = pygame.display.set_mode(size)
-    screen.fill(RED)
+    screen.fill(WHITE)
     return screen
 
 def vid_update():
@@ -42,10 +43,34 @@ def drawPalette(screen, palette):
                 print "%s_%s" % (i, j)
                 pixels[i][j] = c 
         x = x + w 
-        if x >= 640:
+        if x + w > 639:
             x = 0
             y = y + h 
     del pixels 
+    
+def loadImageData(name, pack):
+    data = pack.getFileData(name)
+    width = struct.unpack("<l", data[0]+data[1]+data[2]+data[3])[0]
+    height = struct.unpack("<l", data[4]+data[5]+data[6]+data[7])[0]
+    return data[8:], width, height
+    
+def drawImage(screen, palette, name, pack, xpos, ypos):
+    data, width, height = loadImageData(name, pack)
+    print "%sx%s" % (width, height)
+    pixels = pygame.PixelArray(screen)
+    x = xpos
+    y = ypos
+    for b in data:
+        print "%s_%s" % (x, y)
+        paletteIndex = struct.unpack("<B", b)[0]
+        color = palette[paletteIndex]
+        pixels[x][y] = color
+        x = x + 1
+        if x > (width + xpos) - 1:
+            x = xpos
+            y = y + 1
+    del pixels
+    
             
 def loadPalette(pack):
     palette = []

@@ -22,8 +22,8 @@ def main():
 #         pack.saveFile(k, "/home/dave/quakefiles")
 
     palette = vid.loadPalette(pack)
-    print len(palette)
-    vid.drawPalette(screen, palette)
+    #vid.drawPalette(screen, palette)
+    vid.drawImage(screen, palette, "gfx/loading.lmp", pack, 220, 100)
     while vid.run():
         newtime = time.time()
         host.host_frame(newtime - oldtime)
