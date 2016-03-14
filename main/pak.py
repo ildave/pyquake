@@ -14,7 +14,7 @@ class Pack:
         self.items = {}
         self.loadPack()
 
-    def loadPack(self, path):
+    def loadPack(self):
         self.loadPackHeader()
         self.loadPackDir()
 
@@ -29,8 +29,8 @@ class Pack:
             length = struct.unpack("<l", dataLength)[0]
             self.numItems = length / 64
 
-    def loadPackDir(selfpath, offset, numItems):
-        with open(path, "rb") as fp:
+    def loadPackDir(self):
+        with open(self.pakPath, "rb") as fp:
             fp.seek(self.startOffset, 0)
             for _ in range(0, self.numItems):
                 name = fp.read(56)
@@ -64,47 +64,14 @@ class Pack:
         return data
 
     #implement  file = pack[filename]
-    def _getitem__(self, key):
+    def __getitem__(self, key):
         if not key in self.items:
             raise KeyError
         return self.items[key]
 
     #implement filename in pack
     def __contains__(self, item):
-        return item in items
+        return item in self.items
 
     def sanitizeString(self, s):
         return ''.join(c for c in s if c.isalnum() or c == '.' or c =='/')
-
-# def loadPackHeader(path):
-#     offset = 0
-#     numItems = 0
-#     with open(path, "rb") as fp:
-#         magic = fp.read(4)
-#         dataOffset = fp.read(4)
-#         offset = struct.unpack("<l", dataOffset)[0]
-#         dataLength = fp.read(4)
-#         length = struct.unpack("<l", dataLength)[0]
-#         numItems = length / 64
-#     return (offset, numItems)
-        
-# def loadPackDir(path, offset, numItems):
-#     pack = Pack(numItems, path)
-#     with open(path, "rb") as fp:
-#         fp.seek(offset, 0)
-#         for _ in range(0, numItems):
-#             name = fp.read(56)
-#             dataPosition = fp.read(4)
-#             position = struct.unpack("<l", dataPosition)[0]
-#             dataSize = fp.read(4)
-#             size = struct.unpack("<l", dataSize)[0]
-#             pack.addItem(name, size, position)
-#     return pack
-    
-# def loadPack(path):
-#     offset, numItems = loadPackHeader(path)
-#     pack = loadPackDir(path, offset, numItems)
-#     return pack
-
-# def sanitizeString(s):
-#     return ''.join(c for c in s if c.isalnum() or c == '.' or c =='/')

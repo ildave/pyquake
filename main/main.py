@@ -13,7 +13,7 @@ def main():
     print "main"
     screen = vid.vid_init()
     oldtime = time.time()
-    pack = Pack(PAK_PATH)
+    pack = pak.Pack(PAK_PATH)
     
     
 #     for k in pack.items:
