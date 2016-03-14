@@ -12,6 +12,7 @@ class Pack:
     def __init__(self, pakPath):
         self.pakPath = pakPath
         self.items = {}
+        self.loadPack()
 
     def loadPack(self, path):
         self.loadPackHeader()
