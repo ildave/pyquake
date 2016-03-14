@@ -48,14 +48,14 @@ def drawPalette(screen, palette):
             y = y + h 
     del pixels 
     
-def loadImageData(name, pack):
-    data = pack.getFileData(name)
+def loadImageData(item):
+    data = item.getFileData(name)
     width = struct.unpack("<l", data[0]+data[1]+data[2]+data[3])[0]
     height = struct.unpack("<l", data[4]+data[5]+data[6]+data[7])[0]
     return data[8:], width, height
     
-def drawImage(screen, palette, name, pack, xpos, ypos):
-    data, width, height = loadImageData(name, pack)
+def drawImage(screen, palette, item, xpos, ypos):
+    data, width, height = loadImageData(nitem)
     pixels = pygame.PixelArray(screen)
     x = xpos
     y = ypos

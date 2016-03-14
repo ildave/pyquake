@@ -8,6 +8,17 @@ class Item:
         self.size = size
         self.position = position
 
+    def setPack(self, pack):
+        self.pack = pack
+
+    def getFileData(self, name):
+        data = None
+        with open(self.pack.pakPath, "rb") as fp:
+            fp.seek(item.position, 0)
+            data = fp.read(item.size)
+        return data
+
+
 class Pack:
     def __init__(self, pakPath):
         self.pakPath = pakPath
@@ -44,7 +55,9 @@ class Pack:
     def addItem(self, name, size, position):
         name = self.sanitizeString(name)
         item = Item(name, size, position)
+        item.setPack = self
         self.items[name] = item
+
         
     def saveFile(self, name, destPath):
         data = self.getFileData(name)
@@ -75,3 +88,15 @@ class Pack:
 
     def sanitizeString(self, s):
         return ''.join(c for c in s if c.isalnum() or c == '.' or c =='/')
+
+    @staticmethod
+    def loadPacks(dirPath):
+        packs = []
+        i = 0
+        while i >= 0:
+            name = "%s/pak%s.pak"
+            if not os.path.isfile(os.path.join(dirPath, name)):
+                break
+            p = Pack(os.path.join(dirPath, name))
+            packs.append(pack)
+        return packs

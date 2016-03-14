@@ -2,6 +2,7 @@ import time
 import host
 import vid
 import pak
+import com
 
 PAK_PATH = "/home/dave/PAK0.PAK"
 
@@ -13,6 +14,8 @@ def main():
     print "main"
     screen = vid.vid_init()
     oldtime = time.time()
+    packs = pak.Pack("/home/dave/")
+
     pack = pak.Pack(PAK_PATH)
     
     
@@ -21,7 +24,8 @@ def main():
 
     palette = vid.loadPalette(pack)
     #vid.drawPalette(screen, palette)
-    vid.drawImage(screen, palette, "gfx/loading.lmp", pack, 220, 100)
+    item = com.findFile("gfx/loading.lmp", packs)
+    vid.drawImage(screen, palette, item, 220, 100)
     while vid.run():
         newtime = time.time()
         host.host_frame(newtime - oldtime)
