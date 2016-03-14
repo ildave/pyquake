@@ -63,6 +63,16 @@ class Pack:
             data = fp.read(item.size)
         return data
 
+    #implement  file = pack[filename]
+    def _getitem__(self, key):
+        if not key in self.items:
+            raise KeyError
+        return self.items[key]
+
+    #implement filename in pack
+    def __contains__(self, item):
+        return item in items
+
     def sanitizeString(self, s):
         return ''.join(c for c in s if c.isalnum() or c == '.' or c =='/')
 
