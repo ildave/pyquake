@@ -14,15 +14,16 @@ def main():
     print "main"
     screen = vid.vid_init()
     oldtime = time.time()
-    packs = pak.Pack("/home/dave/")
+    packs = pak.Pack.loadPacks("/home/dave")
 
     pack = pak.Pack(PAK_PATH)
     
     
 #     for k in pack.items:
 #         pack.saveFile(k, "/home/dave/quakefiles")
-
-    palette = vid.loadPalette(pack)
+    
+    paletteFile = com.findFile("gfx/palette.lmp", packs)
+    palette = vid.loadPalette(paletteFile)
     #vid.drawPalette(screen, palette)
     item = com.findFile("gfx/loading.lmp", packs)
     vid.drawImage(screen, palette, item, 220, 100)

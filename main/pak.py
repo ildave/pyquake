@@ -11,11 +11,11 @@ class Item:
     def setPack(self, pack):
         self.pack = pack
 
-    def getFileData(self, name):
+    def getFileData(self):
         data = None
         with open(self.pack.pakPath, "rb") as fp:
-            fp.seek(item.position, 0)
-            data = fp.read(item.size)
+            fp.seek(self.position, 0)
+            data = fp.read(self.size)
         return data
 
 
@@ -55,7 +55,7 @@ class Pack:
     def addItem(self, name, size, position):
         name = self.sanitizeString(name)
         item = Item(name, size, position)
-        item.setPack = self
+        item.setPack(self)
         self.items[name] = item
 
         
@@ -94,9 +94,13 @@ class Pack:
         packs = []
         i = 0
         while i >= 0:
-            name = "%s/pak%s.pak"
+            name = "PAK%s.PAK" % i
+            print os.path.join(dirPath, name)
+            print (dirPath, name)
             if not os.path.isfile(os.path.join(dirPath, name)):
                 break
+            print "loadPack"
             p = Pack(os.path.join(dirPath, name))
-            packs.append(pack)
+            packs.append(p)
+            i += 1
         return packs

@@ -49,13 +49,13 @@ def drawPalette(screen, palette):
     del pixels 
     
 def loadImageData(item):
-    data = item.getFileData(name)
+    data = item.getFileData()
     width = struct.unpack("<l", data[0]+data[1]+data[2]+data[3])[0]
     height = struct.unpack("<l", data[4]+data[5]+data[6]+data[7])[0]
     return data[8:], width, height
     
 def drawImage(screen, palette, item, xpos, ypos):
-    data, width, height = loadImageData(nitem)
+    data, width, height = loadImageData(item)
     pixels = pygame.PixelArray(screen)
     x = xpos
     y = ypos
@@ -70,9 +70,9 @@ def drawImage(screen, palette, item, xpos, ypos):
     del pixels
     
             
-def loadPalette(pack):
+def loadPalette(paletteFile):
     palette = []
-    data = pack.getFileData("gfx/palette.lmp")
+    data = paletteFile.getFileData()
     for i in range(0, len(data), 3):
         r = struct.unpack("<B", data[i])[0]
         g = struct.unpack("<B", data[i + 1])[0]
