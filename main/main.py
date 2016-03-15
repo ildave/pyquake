@@ -4,20 +4,14 @@ import vid
 import pak
 import com
 
-PAK_PATH = "/home/dave/PAK0.PAK"
+PAK_PATH = "/home/dave"
 
-def shutdown():
-    global isRunning
-    isRunning = False
 
 def main():
     print "main"
     screen = vid.vid_init()
     oldtime = time.time()
-    packs = pak.Pack.loadPacks("/home/dave")
-
-    pack = pak.Pack(PAK_PATH)
-    
+    packs = pak.Pack.loadPacks(PAK_PATH)    
     
 #     for k in pack.items:
 #         pack.saveFile(k, "/home/dave/quakefiles")

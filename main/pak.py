@@ -1,6 +1,5 @@
 import struct
 import os
-import re
 
 class Item:
     def __init__(self, name, size, position):
@@ -95,11 +94,8 @@ class Pack:
         i = 0
         while i >= 0:
             name = "PAK%s.PAK" % i
-            print os.path.join(dirPath, name)
-            print (dirPath, name)
             if not os.path.isfile(os.path.join(dirPath, name)):
                 break
-            print "loadPack"
             p = Pack(os.path.join(dirPath, name))
             packs.append(p)
             i += 1
