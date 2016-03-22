@@ -1,9 +1,9 @@
 import pygame
 import struct
-
+import common
 RED = (255, 0, 0)
 WHITE = (255, 255, 255)
-size = (640, 480)
+size = (common.WIDTH, common.HEIGTH)
 
 isRunning = True
 
@@ -43,7 +43,7 @@ def drawPalette(screen, palette):
                 print "%s_%s" % (i, j)
                 pixels[i][j] = c 
         x = x + w 
-        if x + w > 639:
+        if x + w > (common.WIDTH - 1):
             x = 0
             y = y + h 
     del pixels 
@@ -54,15 +54,15 @@ def loadImageData(item):
     height = struct.unpack("<l", data[4]+data[5]+data[6]+data[7])[0]
     return data[8:], width, height
     
-def drawImage(screen, palette, item, xpos, ypos):
+def drawImage(item, xpos, ypos):
     data, width, height = loadImageData(item)
-    pixels = pygame.PixelArray(screen)
+    pixels = pygame.PixelArray(common.SCREEN)
     x = xpos
     y = ypos
     for b in data:
         paletteIndex = struct.unpack("<B", b)[0]
         if paletteIndex != 255:  ###transparent pixel
-            color = palette[paletteIndex]
+            color = common.PALETTE[paletteIndex]
             pixels[x][y] = color
         x = x + 1
         if x > (width + xpos) - 1:

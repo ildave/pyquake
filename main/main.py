@@ -3,24 +3,23 @@ import host
 import vid
 import pak
 import com
-
-PAK_PATH = "/home/dave"
+import common
 
 
 def main():
     print "main"
-    screen = vid.vid_init()
+    common.SCREEN = vid.vid_init()
     oldtime = time.time()
-    packs = pak.Pack.loadPacks(PAK_PATH)    
+    common.PACKS = pak.Pack.loadPacks(common.PAK_PATH)    
     
 #     for k in pack.items:
 #         pack.saveFile(k, "/home/dave/quakefiles")
     
-    paletteFile = com.findFile("gfx/palette.lmp", packs)
-    palette = vid.loadPalette(paletteFile)
+    paletteFile = com.findFile("gfx/palette.lmp")
+    common.PALETTE = vid.loadPalette(paletteFile)
     #vid.drawPalette(screen, palette)
-    item = com.findFile("gfx/loading.lmp", packs)
-    vid.drawImage(screen, palette, item, 220, 100)
+    item = com.findFile("gfx/menuplyr.lmp")
+    vid.drawImage(item, 220, 100)
     while vid.run():
         newtime = time.time()
         host.host_frame(newtime - oldtime)
