@@ -61,8 +61,9 @@ def drawImage(screen, palette, item, xpos, ypos):
     y = ypos
     for b in data:
         paletteIndex = struct.unpack("<B", b)[0]
-        color = palette[paletteIndex]
-        pixels[x][y] = color
+        if paletteIndex != 255:  ###transparent pixel
+            color = palette[paletteIndex]
+            pixels[x][y] = color
         x = x + 1
         if x > (width + xpos) - 1:
             x = xpos
