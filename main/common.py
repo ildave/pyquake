@@ -1,5 +1,5 @@
-HEIGTH = 480
-WIDTH = 640
+HEIGTH = 240
+WIDTH = 320
 
 PAK_PATH = "/home/dave"
 
