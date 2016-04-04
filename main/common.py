@@ -6,3 +6,4 @@ PAK_PATH = "/home/dave"
 SCREEN = None
 PALETTE = None
 PACKS = None
+WAD = None
